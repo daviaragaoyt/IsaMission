@@ -1,0 +1,569 @@
+/* ===================================== */
+/* ESTILOS GERAIS E PALETA DE CORES      */
+/* ===================================== */
+:root {
+    /* Paleta Azul e Branca */
+    --color-primary-text: #003366;     /* Azul Marinho Escuro (para textos) */
+    --color-secondary-text: #007BFF;   /* Azul Brilhante (para destaques) */
+    --color-highlight: #B0C4DE;        /* Azul Aço Claro (para detalhes/bordas) */
+    --color-background-light: rgba(230, 245, 255, 0.9); /* Azul muito claro/quase branco com opacidade */
+    --color-background-card: rgba(255, 255, 255, 0.9); /* Fundo dos cards quase opaco, mais branco */
+    
+    --color-whatsapp: #25D366;         /* Verde WhatsApp (Mantido) */
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--color-primary-text);
+    background-color: var(--color-background-light); /* Fallback */
+    text-align: center;
+    overflow-x: hidden;
+    line-height: 1.6;
+    background-image: none;
+    filter: none;
+    -webkit-filter: none;
+    z-index: auto;
+}
+
+/* ===================================== */
+/* NOVO ESTILO PARA O FUNDO BLURADO      */
+/* ===================================== */
+.background-blur-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* ATUALIZE A IMAGEM DE FUNDO AQUI */
+    background-image: url('imagens/fundo-azul.jpg'); /* Sugestão: imagem de céu, mapa-múndi suave, etc. */
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    z-index: -2;
+}
+
+/* Overlay azulado suave */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(230, 245, 255, 0.65); /* Tom azulado suave */
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===================================== */
+/* TIPOGRAFIA                            */
+/* ===================================== */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 4.2rem; /* Levemente menor para caber o texto */
+    color: var(--color-secondary-text);
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 3.2rem;
+    color: var(--color-primary-text);
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.6rem;
+    color: var(--color-primary-text); /* Trocado do highlight para o primário */
+    border-bottom: 2px solid var(--color-highlight); /* Borda no tom azul claro */
+    display: inline-block;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--color-primary-text);
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: var(--color-primary-text);
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+
+/* ===================================== */
+/* SEÇÕES PRINCIPAIS (Cards)             */
+/* ===================================== */
+main section {
+    margin-top: 40px;
+    background-color: var(--color-background-card);
+    padding: 35px;
+    border-radius: 25px;
+    border: 1px solid var(--color-highlight); /* Borda azul clara */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+main section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.15);
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.info-item {
+    margin: 0;
+    flex-basis: 45%; /* Ficar melhor com 2 itens */
+    min-width: 250px;
+}
+.info-item h3 {
+    border-bottom: none;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    color: var(--color-secondary-text); /* Destaque azul */
+}
+.info-item p {
+    font-size: 1rem;
+}
+
+/* ===================================== */
+/* NOVOS ESTILOS: CARROSSEL INFINITO     */
+/* ===================================== */
+.gallery h3 {
+    margin-bottom: 30px;
+}
+
+.slider-container {
+    background: #fdfdfd;
+    border: 1px solid var(--color-highlight);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 15px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    /* Efeito de fade nas laterais */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.slide-track {
+    display: flex;
+    /* 5 imagens de 250px (x2 para o loop) = 2500px */
+    width: calc(250px * 10); 
+    animation: scroll 30s linear infinite;
+}
+
+.slide-track:hover {
+    animation-play-state: paused; /* Pausa ao passar o mouse */
+}
+
+.slide {
+    height: 180px;
+    width: 250px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.slide img:hover {
+    transform: scale(1.05);
+}
+
+/* Animação do carrossel */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Metade da largura total do track (5 imagens * 250px) */
+        transform: translateX(calc(-250px * 5)); 
+    }
+}
+
+/* ===================================== */
+/* CONTAGEM REGRESSIVA                   */
+/* ===================================== */
+#timer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 25px;
+}
+
+.timer-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timer-unit span {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-secondary-text);
+    line-height: 1;
+}
+
+.timer-unit label {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--color-primary-text);
+    margin-top: 5px;
+}
+
+/* ===================================== */
+/* NOVOS ESTILOS: SEÇÃO DE DOAÇÃO (PIX)  */
+/* ===================================== */
+.donation-intro {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+.pix-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.pix-qr, .pix-copy {
+    flex-basis: 300px;
+}
+
+.pix-qr-code {
+    width: 200px;
+    height: 200px;
+    border: 5px solid var(--color-highlight);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.pix-or {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-highlight);
+    font-weight: 700;
+}
+
+.pix-key {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary-text);
+    background-color: rgba(0, 51, 102, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    word-wrap: break-word; /* Quebra chaves longas */
+    border: 1px dashed var(--color-highlight);
+}
+
+.pix-copy p:first-child {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/* ===================================== */
+/* BOTÕES (CTA)                          */
+/* ===================================== */
+.cta-buttons-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 320px;
+    padding: 15px 30px;
+    font-size: 1.15rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    border: none;
+}
+
+.cta-button i {
+    margin-right: 10px;
+}
+
+/* Botão de Copiar Pix */
+.pix-button {
+    background-color: var(--color-secondary-text); /* Azul brilhante */
+    color: #FFFFFF;
+}
+
+.pix-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0px 8px 20px rgba(0, 123, 255, 0.4);
+}
+
+/* Botão WhatsApp */
+.whatsapp-button {
+    background-color: var(--color-whatsapp);
+    color: #FFFFFF;
+}
+
+.whatsapp-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0px 8px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* ===================================== */
+/* RODAPÉ                                */
+/* ===================================== */
+footer {
+    margin-top: 50px;
+    padding: 25px;
+    font-style: italic;
+    font-family: var(--font-heading);
+    color: var(--color-primary-text);
+    opacity: 0.8;
+    font-size: 1.1rem;
+}
+
+/* ===================================== */
+/* ÍCONES FONT AWESOME                   */
+/* ===================================== */
+.icon-header { /* Pomba / Dove */
+    font-size: 2.8rem;
+    vertical-align: middle;
+    margin: 0 18px;
+    color: var(--color-highlight);
+    transform: translateY(-2px);
+}
+
+.icon-plane { /* Avião */
+    font-size: 2.5rem;
+    color: var(--color-highlight);
+    margin-left: 18px;
+    vertical-align: middle;
+    transition: transform 0.4s ease;
+    transform: translateY(-2px);
+}
+
+.icon-plane:hover {
+    transform: rotate(10deg) scale(1.1) translateY(-5px);
+}
+
+/* Ícones nos subtítulos */
+h3 .fa-solid, h3 .fa-brands {
+    margin-right: 12px;
+    color: var(--color-secondary-text); /* Azul brilhante */
+}
+
+/* ===================================== */
+/* NOVA SEÇÃO: SOBRE A MISSÃO (TEXTO)    */
+/* ===================================== */
+.about-mission {
+    text-align: left; /* Fica melhor para ler textos longos */
+    max-width: 800px; /* Um pouco mais largo para o texto */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-mission h3 {
+    text-align: center; /* Manter o título centralizado */
+}
+
+.about-mission p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+
+.about-mission .intro {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--color-secondary-text); /* Destaque azul */
+    line-height: 1.6;
+}
+
+.ways-to-help {
+    list-style: none; /* Remove os números padrões 1. 2. 3. */
+    padding-left: 0;
+    margin: 25px 0;
+}
+
+.ways-to-help li {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 15px;
+    background-color: rgba(0, 51, 102, 0.04);
+    border-left: 4px solid var(--color-secondary-text);
+    margin-bottom: 10px;
+    border-radius: 0 8px 8px 0;
+    display: flex; /* Para alinhar o ícone e o texto */
+    align-items: center;
+}
+
+.ways-to-help li i {
+    margin-right: 12px;
+    color: var(--color-secondary-text);
+    width: 20px; /* Alinha os ícones */
+    text-align: center;
+}
+
+.about-mission .closing {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-primary-text);
+}
+
+.verse {
+    margin: 30px 0;
+    padding: 20px;
+    border-left: 5px solid var(--color-highlight);
+    background-color: rgba(0, 51, 102, 0.02);
+    font-style: italic;
+}
+
+.verse p {
+    margin-bottom: 10px;
+}
+
+.verse cite {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-primary-text);
+}
+
+.instagram {
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid var(--color-highlight);
+    border-radius: 10px;
+}
+
+.instagram i {
+    color: #E1306C; /* Cor do Instagram */
+    margin-right: 8px;
+}
+
+.instagram a {
+    font-weight: 700;
+    color: var(--color-secondary-text);
+    text-decoration: none;
+}
+
+.instagram a:hover {
+    text-decoration: underline;
+}
+
+
+/* ===================================== */
+/* RESPONSIVIDADE (MOBILE)               */
+/* ===================================== */
+@media (max-width: 768px) {
+    h1 { font-size: 3.2rem; letter-spacing: 2px; }
+    h2 { font-size: 2.8rem; }
+    h3 { font-size: 1.4rem; padding-bottom: 5px; margin-bottom: 20px; }
+    p, .subtitle, footer { font-size: 1rem; }
+
+    .container { margin: 20px auto; padding: 15px; }
+    main section { padding: 25px; border-radius: 20px; }
+
+    .info { gap: 20px; }
+    .info-item { min-width: 100%; flex-basis: 100%; }
+    .info-item h3 { font-size: 1.2rem; }
+
+    /* Carrossel em mobile */
+    .slide-track { 
+        width: calc(200px * 10); /* Imagens menores */
+        animation: scroll 25s linear infinite; 
+    }
+    .slide { height: 150px; width: 200px; }
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-200px * 5)); }
+    }
+
+    #timer { gap: 15px; margin-top: 20px; }
+    .timer-unit span { font-size: 3rem; }
+    .timer-unit label { font-size: 0.85rem; }
+
+    /* Pix em mobile */
+    .pix-area { flex-direction: column; }
+    .pix-or { display: none; }
+    .pix-copy { margin-top: 20px; }
+
+    .cta-buttons-wrapper { flex-direction: column; align-items: center; gap: 15px; margin-top: 25px;}
+    .cta-button { width: 90%; max-width: none; font-size: 1.1rem; padding: 12px 20px;}
+
+    .icon-header { font-size: 2rem; margin: 0 10px; }
+    .icon-plane { font-size: 2rem; margin-left: 10px; }
+    h3 .fa-solid { margin-right: 8px; }
+
+    /* Texto pessoal em mobile */
+    .about-mission { text-align: center; }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2.6rem; letter-spacing: 1px; }
+    h2 { font-size: 2.2rem; }
+    .icon-header { font-size: 1.8rem; margin: 0 8px; }
+    .icon-plane { font-size: 1.8rem; margin-left: 8px; }
+    .timer-unit span { font-size: 2.5rem; }
+    
+    .slide-track { width: calc(160px * 10); }
+    .slide { height: 120px; width: 160px; }
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-160px * 5)); }
+    }
+}

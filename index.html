@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Missão - Isa no Amazonas</title>
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    
+    <div class="background-blur-image"></div>
+
+    <div class="container">
+        
+        <header>
+            <p class="subtitle">Apoie esta</p>
+            <h1><i class="fa-solid fa-dove icon-header"></i>Jornada Missionária</h1>
+        </header>
+
+        <main>
+            <section class="missionary-name">
+                <h2>Isabel Oliveira Bezerra<i class="fa-solid fa-plane-departure icon-plane"></i></h2>
+                <p>convida você a fazer parte desta obra.</p>
+            </section>
+            
+            <section class="about-mission">
+                <h3><i class="fa-solid fa-scroll"></i> Um Chamado Pessoal</h3>
+                
+                <p class="intro">"Oi, amigos!! Eu sou a <strong>Isa</strong> e nos dias <strong>19/12 a 27/12</strong>, estarei indo ao Amazonas nos ribeirinhos, para cumprir o chamado que Deus colocou em meu coração."</p>
+                
+                <p>Convoco VOCÊ, que também é um missionário em casa, a me apoiar em oração e financeiramente, para que essa missão seja concluída.</p>
+                
+                <p>Conto com você e com a sua ajuda de três maneiras:</p>
+                
+                <ol class="ways-to-help">
+                    <li><i class="fa-solid fa-hands-praying"></i> Orando por mim</li>
+                    <li><i class="fa-solid fa-hand-holding-dollar"></i> Apoiando financeiramente</li>
+                    <li><i class="fa-solid fa-share-nodes"></i> Compartilhando essa missão</li>
+                </ol>
+                
+                <p class="closing">Vamos juntos cumprir o ide! 🔥</p>
+                
+                <blockquote class="verse">
+                    <p>“E será pregado este evangelho do Reino por todo o mundo, para testemunho a todas as nações.”</p>
+                    <cite>Mateus 24:14</cite>
+                </blockquote>
+                
+                <p class="instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                    Quer acompanhar? Vou compartilhar tudo no meu Instagram: 
+                    <a href="https://www.instagram.com/isa_obz" target="_blank">@isa_obz</a> 💗
+                </p>
+            </section>
+
+            <section class="info">
+                <div class="info-item">
+                    <h3><i class="fa-solid fa-calendar-days"></i> Data da Missão</h3>
+                    <p>19 a 27 de Dezembro</p>
+                </div>
+                <div class="info-item">
+                    <h3><i class="fa-solid fa-water"></i> Destino</h3>
+                    <p>Amazonas (Ribeirinhos)</p>
+                </div>
+            </section>
+
+            <section class="gallery">
+                <h3><i class="fa-solid fa-camera-retro"></i> Momentos e Preparativos</h3>
+                <div class="slider-container">
+                    <div class="slide-track">
+                        <div class="slide"><img src="imgs/foto1.jpeg" alt="Foto da missionária 1"></div>
+                        <div class="slide"><img src="imgs/foto2.jpeg" alt="Foto da missionária 2"></div>
+                        <div class="slide"><img src="imgs/foto3.jpeg" alt="Foto da missionária 3"></div>
+                        <div class="slide"><img src="imgs/foto4.jpeg" alt="Foto da missionária 4"></div>
+                        <div class="slide"><img src="imgs/foto5.jpeg" alt="Foto da missionária 5"></div>
+                        <div class="slide"><img src="imgs/foto6.jpeg" alt="Foto da missionária 1"></div>
+                        <div class="slide"><img src="imgs/foto7.jpeg" alt="Foto da missionária 2"></div>
+                        <div class="slide"><img src="imgs/foto8.jpeg" alt="Foto da missionária 3"></div>
+                        <div class="slide"><img src="imgs/foto9.jpeg" alt="Foto da missionária 4"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="countdown">
+                <h3>Contagem Regressiva para a Partida</h3>
+                <div id="timer">
+                    <div class="timer-unit">
+                        <span id="dias">00</span>
+                        <label>Dias</label>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="horas">00</span>
+                        <label>Horas</label>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="minutos">00</span>
+                        <label>Minutos</label>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="segundos">00</span>
+                        <label>Segundos</label>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="donation">
+                <h3><i class="fa-solid fa-hand-holding-dollar"></i> Faça Parte Desta Missão</h3>
+                <p class="donation-intro">Sua contribuição é fundamental para que esta missão aconteça. Você pode ajudar de forma rápida e segura via Pix.</p>
+
+                <div class="pix-area">
+                    <div class="pix-qr">
+                        <img src="imgs/pixIsa.jpeg" alt="QR Code Pix" class="pix-qr-code">
+                        <p>Escaneie o QR Code</p>
+                    </div>
+                    <div class="pix-or">ou</div>
+                    <div class="pix-copy">
+                        <p>Use a chave "Copia e Cola":</p>
+                        <p class="pix-key" id="chavePixTexto">belaoliveira413@gmail.com</p>
+                        <button class="cta-button pix-button" id="btnCopiarPix">
+                            <i class="fa-solid fa-copy"></i> Copiar Chave Pix
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="cta-buttons-wrapper">
+                    <a href="https://wa.me/55SEUNUMERO?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20missão." target="_blank" class="cta-button whatsapp-button">
+                        <i class="fa-brands fa-whatsapp"></i> Falar sobre a Missão
+                    </a>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Conto com sua oração e apoio para esta jornada!</p>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
