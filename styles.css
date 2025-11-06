@@ -1,12 +1,13 @@
 :root {
-    --color-primary-text: #4A4E69;
-    --color-text-body: #555;
-    --color-background-card: #FFFFFF;
-    --color-highlight: #E0E0E0;
-    --color-secondary-text: rgba(46, 71, 189, 1);
-    --color-background-light: #F4F4F7;
-    --button-gradient: linear-gradient(90deg, rgba(26, 39, 91, 1), rgba(46, 71, 189, 1));
-    --color-whatsapp: #00a13b;
+    /* Paleta baseada na imagem */
+    --color-background-dark: #121212;   /* Preto quase puro para o fundo */
+    --color-primary-highlight: #FFC107; /* Amarelo/Ouro para destaque principal */
+    --color-secondary-text: #FFFFFF;    /* Branco para textos secundários */
+    --color-text-light-gray: #B0B0B0;   /* Cinza claro para detalhes e textos suaves */
+    --color-border-dark: #333333;       /* Cinza escuro para bordas */
+    
+    /* Cores que definimos a partir da sua paleta */
+    --color-whatsapp: #25D366;          /* Mantido o verde do WhatsApp */
     --font-heading: 'Cinzel', serif;
     --font-body: 'Montserrat', sans-serif;
 }
@@ -14,8 +15,8 @@
 body {
     margin: 0;
     font-family: var(--font-body);
-    color: var(--color-text-body);
-    background-color: var(--color-background-light);
+    color: var(--color-secondary-text); /* Texto principal branco */
+    background-color: var(--color-background-dark); /* Fundo da página preto */
     text-align: center;
     overflow-x: hidden;
     line-height: 1.6;
@@ -25,29 +26,14 @@ body {
     z-index: auto;
 }
 
+/* Fundo blurrado removido, agora o fundo é sólido preto */
 .background-blur-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('imagens/fundo-azul.jpg');
-    background-size: cover;
-    background-position: center;
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
-    z-index: -2;
+    display: none; 
 }
 
+/* Overlay removido, pois o fundo é sólido */
 body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(244, 244, 247, 0.65);
-    z-index: -1;
+    display: none;
 }
 
 .container {
@@ -61,28 +47,28 @@ body::before {
 h1, h2, h3 {
     font-family: var(--font-heading);
     font-weight: 700;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
     margin-top: 0;
     margin-bottom: 10px;
 }
 
 h1 {
     font-size: 4.2rem;
-    color: var(--color-primary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
     letter-spacing: 3px;
     margin-bottom: 20px;
 }
 
 h2 {
     font-size: 3.2rem;
-    color: var(--color-primary-text);
+    color: var(--color-secondary-text); /* Branco */
     margin-bottom: 15px;
 }
 
 h3 {
     font-size: 1.6rem;
-    color: var(--color-primary-text);
-    border-bottom: 2px solid var(--color-highlight);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
+    border-bottom: 2px solid var(--color-border-dark); /* Borda cinza escura */
     display: inline-block;
     padding-bottom: 8px;
     margin-bottom: 25px;
@@ -92,32 +78,32 @@ h3 {
 p {
     font-size: 1.1rem;
     font-weight: 400;
-    color: var(--color-text-body);
+    color: var(--color-text-light-gray); /* Cinza claro */
 }
 
 .subtitle {
     font-size: 1.3rem;
     letter-spacing: 2px;
-    color: var(--color-primary-text);
+    color: var(--color-text-light-gray); /* Cinza claro */
     margin-bottom: 5px;
     font-weight: 300;
 }
 
 main section {
     margin-top: 40px;
-    background-color: var(--color-background-card);
+    background-color: var(--color-background-dark); /* Fundo do card preto */
     padding: 35px;
     border-radius: 25px;
-    border: 1px solid var(--color-highlight);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid var(--color-border-dark); /* Borda cinza escura */
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3); /* Sombra mais escura */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: none; /* Não precisamos de blur no fundo escuro */
+    -webkit-backdrop-filter: none;
 }
 
 main section:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 15px 40px rgba(0,0,0,0.1);
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.4);
 }
 
 .info {
@@ -136,11 +122,11 @@ main section:hover {
     border-bottom: none;
     margin-bottom: 10px;
     font-size: 1.3rem;
-    color: var(--color-secondary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
 }
 .info-item p {
     font-size: 1rem;
-    color: var(--color-text-body);
+    color: var(--color-text-light-gray); /* Cinza claro */
 }
 
 .gallery h3 {
@@ -148,10 +134,10 @@ main section:hover {
 }
 
 .slider-container {
-    background: #fdfdfd;
-    border: 1px solid var(--color-highlight);
+    background: #222222; /* Um cinza escuro para o carrossel */
+    border: 1px solid var(--color-border-dark);
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     padding: 15px;
     width: 100%;
     overflow: hidden;
@@ -217,7 +203,7 @@ main section:hover {
     font-family: var(--font-heading);
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--color-secondary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
     line-height: 1;
 }
 
@@ -225,7 +211,7 @@ main section:hover {
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: var(--color-primary-text);
+    color: var(--color-text-light-gray); /* Cinza claro */
     margin-top: 5px;
 }
 
@@ -251,7 +237,7 @@ main section:hover {
 .pix-qr-code {
     width: 200px;
     height: 200px;
-    border: 5px solid var(--color-highlight);
+    border: 5px solid var(--color-primary-highlight); /* Borda amarela */
     border-radius: 10px;
     margin-bottom: 10px;
 }
@@ -259,19 +245,19 @@ main section:hover {
 .pix-or {
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    color: var(--color-highlight);
+    color: var(--color-border-dark); /* Cinza escuro */
     font-weight: 700;
 }
 
 .pix-key {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--color-primary-text);
-    background-color: #f8f9fa;
+    color: var(--color-secondary-text); /* Branco */
+    background-color: #222222; /* Fundo cinza escuro */
     padding: 15px;
     border-radius: 8px;
     word-wrap: break-word;
-    border: 1px dashed var(--color-highlight);
+    border: 1px dashed var(--color-border-dark);
 }
 
 .pix-copy p:first-child {
@@ -298,12 +284,11 @@ main section:hover {
     font-weight: 700;
     text-decoration: none;
     border-radius: 50px;
-    transition: all 0.4s ease;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
     cursor: pointer;
     border: none;
-    color: #FFFFFF;
-    background-size: 200% auto;
+    color: var(--color-background-dark); /* Texto do botão preto */
 }
 
 .cta-button i {
@@ -311,13 +296,12 @@ main section:hover {
 }
 
 .pix-button {
-    background-image: var(--button-gradient);
+    background-color: var(--color-primary-highlight); /* Amarelo sólido */
 }
 
 .pix-button:hover {
-    background-position: right center;
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0px 8px 20px rgba(46, 71, 189, 0.4); 
+    box-shadow: 0px 8px 20px rgba(255, 193, 7, 0.4);
 }
 
 .whatsapp-button {
@@ -335,7 +319,7 @@ footer {
     padding: 25px;
     font-style: italic;
     font-family: var(--font-heading);
-    color: var(--color-text-body);
+    color: var(--color-text-light-gray); /* Cinza claro */
     opacity: 0.8;
     font-size: 1.1rem;
 }
@@ -344,13 +328,13 @@ footer {
     font-size: 2.8rem;
     vertical-align: middle;
     margin: 0 18px;
-    color: var(--color-secondary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
     transform: translateY(-2px);
 }
 
 .icon-plane {
     font-size: 2.5rem;
-    color: var(--color-secondary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
     margin-left: 18px;
     vertical-align: middle;
     transition: transform 0.4s ease;
@@ -363,7 +347,7 @@ footer {
 
 h3 .fa-solid, h3 .fa-brands {
     margin-right: 12px;
-    color: var(--color-secondary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
 }
 
 .about-mission {
@@ -386,7 +370,7 @@ h3 .fa-solid, h3 .fa-brands {
 .about-mission .intro {
     font-size: 1.2rem;
     font-weight: 400;
-    color: var(--color-secondary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
     line-height: 1.6;
 }
 
@@ -400,17 +384,18 @@ h3 .fa-solid, h3 .fa-brands {
     font-size: 1.1rem;
     font-weight: 600;
     padding: 12px 15px;
-    background-color: rgba(74, 78, 105, 0.04);
-    border-left: 4px solid var(--color-secondary-text);
+    background-color: #222222; /* Fundo cinza escuro */
+    border-left: 4px solid var(--color-primary-highlight); /* Borda amarela */
     margin-bottom: 10px;
     border-radius: 0 8px 8px 0;
     display: flex;
     align-items: center;
+    color: var(--color-secondary-text); /* Texto branco */
 }
 
 .ways-to-help li i {
     margin-right: 12px;
-    color: var(--color-secondary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
     width: 20px;
     text-align: center;
 }
@@ -420,15 +405,16 @@ h3 .fa-solid, h3 .fa-brands {
     font-size: 1.2rem;
     font-weight: 700;
     text-align: center;
-    color: var(--color-primary-text);
+    color: var(--color-primary-highlight); /* Amarelo/Ouro */
 }
 
 .verse {
     margin: 30px 0;
     padding: 20px;
-    border-left: 5px solid var(--color-secondary-text);
-    background-color: rgba(74, 78, 105, 0.02);
+    border-left: 5px solid var(--color-primary-highlight); /* Borda amarela */
+    background-color: #222222; /* Fundo cinza escuro */
     font-style: italic;
+    color: var(--color-text-light-gray); /* Texto cinza claro */
 }
 
 .verse p {
@@ -439,26 +425,27 @@ h3 .fa-solid, h3 .fa-brands {
     font-style: normal;
     font-weight: 600;
     font-size: 1rem;
-    color: var(--color-primary-text);
+    color: var(--color-secondary-text); /* Branco */
 }
 
 .instagram {
     text-align: center;
     font-size: 1.1rem;
     padding: 20px;
-    background-color: #f8f9fa;
-    border: 1px solid var(--color-highlight);
+    background-color: #222222; /* Fundo cinza escuro */
+    border: 1px solid var(--color-border-dark);
     border-radius: 10px;
+    color: var(--color-secondary-text); /* Texto branco */
 }
 
 .instagram i {
-    color: #E1306C;
+    color: var(--color-primary-highlight); /* Ícone Instagram amarelo */
     margin-right: 8px;
 }
 
 .instagram a {
     font-weight: 700;
-    color: var(--color-secondary-text);
+    color: var(--color-primary-highlight); /* Link Instagram amarelo */
     text-decoration: none;
 }
 
