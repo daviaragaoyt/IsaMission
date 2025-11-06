@@ -1,15 +1,12 @@
-/* ===================================== */
-/* ESTILOS GERAIS E PALETA DE CORES      */
-/* ===================================== */
 :root {
-    /* Paleta Azul e Branca */
-    --color-primary-text: #003366;     /* Azul Marinho Escuro (para textos) */
-    --color-secondary-text: #007BFF;   /* Azul Brilhante (para destaques) */
-    --color-highlight: #B0C4DE;        /* Azul Aço Claro (para detalhes/bordas) */
-    --color-background-light: rgba(230, 245, 255, 0.9); /* Azul muito claro/quase branco com opacidade */
-    --color-background-card: rgba(255, 255, 255, 0.9); /* Fundo dos cards quase opaco, mais branco */
-    
-    --color-whatsapp: #25D366;         /* Verde WhatsApp (Mantido) */
+    --color-primary-text: #4A4E69;
+    --color-text-body: #555;
+    --color-background-card: #FFFFFF;
+    --color-highlight: #E0E0E0;
+    --color-secondary-text: rgba(46, 71, 189, 1);
+    --color-background-light: #F4F4F7;
+    --button-gradient: linear-gradient(90deg, rgba(26, 39, 91, 1), rgba(46, 71, 189, 1));
+    --color-whatsapp: #00a13b;
     --font-heading: 'Cinzel', serif;
     --font-body: 'Montserrat', sans-serif;
 }
@@ -17,8 +14,8 @@
 body {
     margin: 0;
     font-family: var(--font-body);
-    color: var(--color-primary-text);
-    background-color: var(--color-background-light); /* Fallback */
+    color: var(--color-text-body);
+    background-color: var(--color-background-light);
     text-align: center;
     overflow-x: hidden;
     line-height: 1.6;
@@ -28,17 +25,13 @@ body {
     z-index: auto;
 }
 
-/* ===================================== */
-/* NOVO ESTILO PARA O FUNDO BLURADO      */
-/* ===================================== */
 .background-blur-image {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* ATUALIZE A IMAGEM DE FUNDO AQUI */
-    background-image: url('imagens/fundo-azul.jpg'); /* Sugestão: imagem de céu, mapa-múndi suave, etc. */
+    background-image: url('imagens/fundo-azul.jpg');
     background-size: cover;
     background-position: center;
     filter: blur(5px);
@@ -46,7 +39,6 @@ body {
     z-index: -2;
 }
 
-/* Overlay azulado suave */
 body::before {
     content: '';
     position: fixed;
@@ -54,7 +46,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(230, 245, 255, 0.65); /* Tom azulado suave */
+    background-color: rgba(244, 244, 247, 0.65);
     z-index: -1;
 }
 
@@ -66,9 +58,6 @@ body::before {
     z-index: 1;
 }
 
-/* ===================================== */
-/* TIPOGRAFIA                            */
-/* ===================================== */
 h1, h2, h3 {
     font-family: var(--font-heading);
     font-weight: 700;
@@ -78,8 +67,8 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 4.2rem; /* Levemente menor para caber o texto */
-    color: var(--color-secondary-text);
+    font-size: 4.2rem;
+    color: var(--color-primary-text);
     letter-spacing: 3px;
     margin-bottom: 20px;
 }
@@ -92,8 +81,8 @@ h2 {
 
 h3 {
     font-size: 1.6rem;
-    color: var(--color-primary-text); /* Trocado do highlight para o primário */
-    border-bottom: 2px solid var(--color-highlight); /* Borda no tom azul claro */
+    color: var(--color-primary-text);
+    border-bottom: 2px solid var(--color-highlight);
     display: inline-block;
     padding-bottom: 8px;
     margin-bottom: 25px;
@@ -103,7 +92,7 @@ h3 {
 p {
     font-size: 1.1rem;
     font-weight: 400;
-    color: var(--color-primary-text);
+    color: var(--color-text-body);
 }
 
 .subtitle {
@@ -114,24 +103,21 @@ p {
     font-weight: 300;
 }
 
-/* ===================================== */
-/* SEÇÕES PRINCIPAIS (Cards)             */
-/* ===================================== */
 main section {
     margin-top: 40px;
     background-color: var(--color-background-card);
     padding: 35px;
     border-radius: 25px;
-    border: 1px solid var(--color-highlight); /* Borda azul clara */
+    border: 1px solid var(--color-highlight);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 main section:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 15px 40px rgba(0,0,0,0.15);
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.1);
 }
 
 .info {
@@ -143,22 +129,20 @@ main section:hover {
 
 .info-item {
     margin: 0;
-    flex-basis: 45%; /* Ficar melhor com 2 itens */
+    flex-basis: 45%;
     min-width: 250px;
 }
 .info-item h3 {
     border-bottom: none;
     margin-bottom: 10px;
     font-size: 1.3rem;
-    color: var(--color-secondary-text); /* Destaque azul */
+    color: var(--color-secondary-text);
 }
 .info-item p {
     font-size: 1rem;
+    color: var(--color-text-body);
 }
 
-/* ===================================== */
-/* NOVOS ESTILOS: CARROSSEL INFINITO     */
-/* ===================================== */
 .gallery h3 {
     margin-bottom: 30px;
 }
@@ -172,20 +156,18 @@ main section:hover {
     width: 100%;
     overflow: hidden;
     position: relative;
-    /* Efeito de fade nas laterais */
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .slide-track {
     display: flex;
-    /* 5 imagens de 250px (x2 para o loop) = 2500px */
     width: calc(250px * 10); 
     animation: scroll 30s linear infinite;
 }
 
 .slide-track:hover {
-    animation-play-state: paused; /* Pausa ao passar o mouse */
+    animation-play-state: paused;
 }
 
 .slide {
@@ -209,20 +191,15 @@ main section:hover {
     transform: scale(1.05);
 }
 
-/* Animação do carrossel */
 @keyframes scroll {
     0% {
         transform: translateX(0);
     }
     100% {
-        /* Metade da largura total do track (5 imagens * 250px) */
         transform: translateX(calc(-250px * 5)); 
     }
 }
 
-/* ===================================== */
-/* CONTAGEM REGRESSIVA                   */
-/* ===================================== */
 #timer {
     display: flex;
     justify-content: center;
@@ -252,9 +229,6 @@ main section:hover {
     margin-top: 5px;
 }
 
-/* ===================================== */
-/* NOVOS ESTILOS: SEÇÃO DE DOAÇÃO (PIX)  */
-/* ===================================== */
 .donation-intro {
     font-size: 1.1rem;
     max-width: 600px;
@@ -293,10 +267,10 @@ main section:hover {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-primary-text);
-    background-color: rgba(0, 51, 102, 0.05);
+    background-color: #f8f9fa;
     padding: 15px;
     border-radius: 8px;
-    word-wrap: break-word; /* Quebra chaves longas */
+    word-wrap: break-word;
     border: 1px dashed var(--color-highlight);
 }
 
@@ -305,9 +279,6 @@ main section:hover {
     margin-bottom: 10px;
 }
 
-/* ===================================== */
-/* BOTÕES (CTA)                          */
-/* ===================================== */
 .cta-buttons-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -327,28 +298,28 @@ main section:hover {
     font-weight: 700;
     text-decoration: none;
     border-radius: 50px;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
     cursor: pointer;
     border: none;
+    color: #FFFFFF;
+    background-size: 200% auto;
 }
 
 .cta-button i {
     margin-right: 10px;
 }
 
-/* Botão de Copiar Pix */
 .pix-button {
-    background-color: var(--color-secondary-text); /* Azul brilhante */
-    color: #FFFFFF;
+    background-image: var(--button-gradient);
 }
 
 .pix-button:hover {
+    background-position: right center;
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0px 8px 20px rgba(0, 123, 255, 0.4);
+    box-shadow: 0px 8px 20px rgba(46, 71, 189, 0.4); 
 }
 
-/* Botão WhatsApp */
 .whatsapp-button {
     background-color: var(--color-whatsapp);
     color: #FFFFFF;
@@ -359,33 +330,27 @@ main section:hover {
     box-shadow: 0px 8px 20px rgba(37, 211, 102, 0.4);
 }
 
-/* ===================================== */
-/* RODAPÉ                                */
-/* ===================================== */
 footer {
     margin-top: 50px;
     padding: 25px;
     font-style: italic;
     font-family: var(--font-heading);
-    color: var(--color-primary-text);
+    color: var(--color-text-body);
     opacity: 0.8;
     font-size: 1.1rem;
 }
 
-/* ===================================== */
-/* ÍCONES FONT AWESOME                   */
-/* ===================================== */
-.icon-header { /* Pomba / Dove */
+.icon-header {
     font-size: 2.8rem;
     vertical-align: middle;
     margin: 0 18px;
-    color: var(--color-highlight);
+    color: var(--color-secondary-text);
     transform: translateY(-2px);
 }
 
-.icon-plane { /* Avião */
+.icon-plane {
     font-size: 2.5rem;
-    color: var(--color-highlight);
+    color: var(--color-secondary-text);
     margin-left: 18px;
     vertical-align: middle;
     transition: transform 0.4s ease;
@@ -396,24 +361,20 @@ footer {
     transform: rotate(10deg) scale(1.1) translateY(-5px);
 }
 
-/* Ícones nos subtítulos */
 h3 .fa-solid, h3 .fa-brands {
     margin-right: 12px;
-    color: var(--color-secondary-text); /* Azul brilhante */
+    color: var(--color-secondary-text);
 }
 
-/* ===================================== */
-/* NOVA SEÇÃO: SOBRE A MISSÃO (TEXTO)    */
-/* ===================================== */
 .about-mission {
-    text-align: left; /* Fica melhor para ler textos longos */
-    max-width: 800px; /* Um pouco mais largo para o texto */
+    text-align: left;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .about-mission h3 {
-    text-align: center; /* Manter o título centralizado */
+    text-align: center;
 }
 
 .about-mission p {
@@ -425,12 +386,12 @@ h3 .fa-solid, h3 .fa-brands {
 .about-mission .intro {
     font-size: 1.2rem;
     font-weight: 400;
-    color: var(--color-secondary-text); /* Destaque azul */
+    color: var(--color-secondary-text);
     line-height: 1.6;
 }
 
 .ways-to-help {
-    list-style: none; /* Remove os números padrões 1. 2. 3. */
+    list-style: none;
     padding-left: 0;
     margin: 25px 0;
 }
@@ -439,18 +400,18 @@ h3 .fa-solid, h3 .fa-brands {
     font-size: 1.1rem;
     font-weight: 600;
     padding: 12px 15px;
-    background-color: rgba(0, 51, 102, 0.04);
+    background-color: rgba(74, 78, 105, 0.04);
     border-left: 4px solid var(--color-secondary-text);
     margin-bottom: 10px;
     border-radius: 0 8px 8px 0;
-    display: flex; /* Para alinhar o ícone e o texto */
+    display: flex;
     align-items: center;
 }
 
 .ways-to-help li i {
     margin-right: 12px;
     color: var(--color-secondary-text);
-    width: 20px; /* Alinha os ícones */
+    width: 20px;
     text-align: center;
 }
 
@@ -465,8 +426,8 @@ h3 .fa-solid, h3 .fa-brands {
 .verse {
     margin: 30px 0;
     padding: 20px;
-    border-left: 5px solid var(--color-highlight);
-    background-color: rgba(0, 51, 102, 0.02);
+    border-left: 5px solid var(--color-secondary-text);
+    background-color: rgba(74, 78, 105, 0.02);
     font-style: italic;
 }
 
@@ -491,7 +452,7 @@ h3 .fa-solid, h3 .fa-brands {
 }
 
 .instagram i {
-    color: #E1306C; /* Cor do Instagram */
+    color: #E1306C;
     margin-right: 8px;
 }
 
@@ -505,10 +466,6 @@ h3 .fa-solid, h3 .fa-brands {
     text-decoration: underline;
 }
 
-
-/* ===================================== */
-/* RESPONSIVIDADE (MOBILE)               */
-/* ===================================== */
 @media (max-width: 768px) {
     h1 { font-size: 3.2rem; letter-spacing: 2px; }
     h2 { font-size: 2.8rem; }
@@ -522,9 +479,8 @@ h3 .fa-solid, h3 .fa-brands {
     .info-item { min-width: 100%; flex-basis: 100%; }
     .info-item h3 { font-size: 1.2rem; }
 
-    /* Carrossel em mobile */
     .slide-track { 
-        width: calc(200px * 10); /* Imagens menores */
+        width: calc(200px * 10);
         animation: scroll 25s linear infinite; 
     }
     .slide { height: 150px; width: 200px; }
@@ -537,7 +493,6 @@ h3 .fa-solid, h3 .fa-brands {
     .timer-unit span { font-size: 3rem; }
     .timer-unit label { font-size: 0.85rem; }
 
-    /* Pix em mobile */
     .pix-area { flex-direction: column; }
     .pix-or { display: none; }
     .pix-copy { margin-top: 20px; }
@@ -549,7 +504,6 @@ h3 .fa-solid, h3 .fa-brands {
     .icon-plane { font-size: 2rem; margin-left: 10px; }
     h3 .fa-solid { margin-right: 8px; }
 
-    /* Texto pessoal em mobile */
     .about-mission { text-align: center; }
 }
 
