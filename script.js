@@ -1,7 +1,5 @@
-// ATENÇÃO: Data da missão atualizada para 19 de Janeiro.
-// Formato: "Ano-Mês-DiaTHora:Minuto:Segundo"
-// (19 de Dezembro de 2026, às 08:00)
-const dataDaMissao = new Date("2026-01-19T08:00:00").getTime();
+
+const dataDaMissao = new Date("2026-01-07T08:00:00").getTime();
 
 // Atualiza a contagem a cada 1 segundo
 const intervalo = setInterval(function () {
