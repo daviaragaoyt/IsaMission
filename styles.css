@@ -196,9 +196,9 @@ main section {
 
 .slide-track {
     display: flex;
-    width: calc(350px * 28);
+    width: calc(350px * 16);
     /* Mais espaço */
-    animation: scroll 32s linear infinite;
+    animation: scroll 25s linear infinite;
 }
 
 .slide-track:hover {
@@ -240,7 +240,7 @@ main section {
     }
 
     100% {
-        transform: translateX(calc(-350px * 14));
+        transform: translateX(calc(-350px * 12.8));
     }
 }
 
