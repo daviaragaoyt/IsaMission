@@ -1,6 +1,6 @@
-// DEFINE AQUI A DATA DA NOVA VIAGEM PARA A FRONTEIRA (Ano-Mês-Dia T Hora:Min:Seg)
-// Exemplo: Coloquei para 15 de Janeiro de 2026. Altere conforme necessário.
-const dataDaMissao = new Date("2026-01-15T08:00:00").getTime();
+// DEFINE AQUI A DATA DA NOVA VIAGEM (Ano-Mês-Dia T Hora:Min:Seg)
+// Exemplo: Coloquei para 1 de Outubro de 2026. Altere conforme necessário.
+const dataDaMissao = new Date("2026-10-01T00:00:00").getTime();
 
 // Atualiza a contagem a cada 1 segundo
 const intervalo = setInterval(function () {
@@ -23,7 +23,7 @@ const intervalo = setInterval(function () {
     if (distancia < 0) {
         clearInterval(intervalo);
         if (document.getElementById("timer")) {
-            document.getElementById("timer").innerHTML = "<div style='text-align:center'><h3>A JORNADA COMEÇOU!</h3><p>Orem por nós na fronteira!</p></div>";
+            document.getElementById("timer").innerHTML = "<div style='text-align:center'><h3>A JORNADA COMEÇOU!</h3><p>Orem por nós nesse novo destino!</p></div>";
         }
     }
 }, 1000);
@@ -49,6 +49,16 @@ if (btnCopiar) {
             // Fallback simples
             alert('Copie manualmente: ' + chavePix);
         });
+    });
+}
+
+/* ===================================== */
+/* FUNÇÃO: MOUSE GLOW EFFECT             */
+/* ===================================== */
+const glow = document.getElementById('mouse-glow');
+if (glow) {
+    document.addEventListener('mousemove', (e) => {
+        glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
 }
 
