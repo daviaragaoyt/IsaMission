@@ -1,11 +1,17 @@
 :root {
     /* PALETA EDITORIAL / CLÁSSICA */
-    --color-background-dark: #FCFBF9; /* Tom papel levemente creme para leitura e elegância */
-    --color-background-card: #FFFFFF; /* Cartões puros */
-    --color-primary-highlight: #A81B1B; /* Vermelho Rubi clássico e marcante */
-    --color-secondary-text: #1C1C1C; /* Chumbo quase preto profundo */
-    --color-text-light-gray: #6B6B6B; /* Cinza médio de alta leitura */
-    --color-border-dark: #EAE6E1; /* Linhas finas, levemente quentes */
+    --color-background-dark: #FCFBF9;
+    /* Tom papel levemente creme para leitura e elegância */
+    --color-background-card: #FFFFFF;
+    /* Cartões puros */
+    --color-primary-highlight: #A81B1B;
+    /* Vermelho Rubi clássico e marcante */
+    --color-secondary-text: #1C1C1C;
+    /* Chumbo quase preto profundo */
+    --color-text-light-gray: #6B6B6B;
+    /* Cinza médio de alta leitura */
+    --color-border-dark: #EAE6E1;
+    /* Linhas finas, levemente quentes */
 
     --color-whatsapp: #25D366;
     --font-heading: 'Cinzel', serif;
@@ -205,6 +211,7 @@ main section {
     text-decoration: none;
     transition: color 0.3s ease;
 }
+
 .instagram-link:hover {
     color: var(--color-secondary-text);
 }
@@ -382,12 +389,12 @@ main section {
 
 .whatsapp-button {
     background-color: transparent;
-    border: 1px solid var(--color-whatsapp);
-    color: var(--color-whatsapp);
+    border: 1px solid red;
+    color: red;
 }
 
 .whatsapp-button:hover {
-    background-color: var(--color-whatsapp);
+    background-color: red;
     color: #FFF;
     box-shadow: none;
 }
