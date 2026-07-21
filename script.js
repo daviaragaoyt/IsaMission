@@ -195,7 +195,7 @@ if (canvas) {
             this.x = x;
             this.y = y;
             this.radius = 0;
-            this.maxRadius = Math.max(window.innerWidth, window.innerHeight) * 1.5; // Expande para cobrir a tela inteira
+            this.maxRadius = 750; // Alcance ainda mais reduzido, morre logo após a geleia (650)
             this.speed = 3.0; // Velocidade suave
             this.thickness = 180; // Onda gordinha
             this.life = 1.0;
