@@ -18,18 +18,18 @@
     --font-body: 'Montserrat', sans-serif;
 }
 
-#mouse-glow {
+/* ===================================== */
+/* EFEITO DE PARTÍCULAS BACKGROUND       */
+/* ===================================== */
+#particle-canvas {
     position: fixed;
-    top: -600px;
-    left: -600px;
-    width: 1200px;
-    height: 1200px;
-    background: radial-gradient(circle, rgba(220, 30, 30, 0.4) 0%, rgba(220, 30, 30, 0.1) 45%, transparent 70%);
-    border-radius: 50%;
-    filter: blur(100px);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
+    /* Garante que os cliques passem direto para os botões */
     z-index: 0;
-    will-change: transform;
 }
 
 body {
@@ -40,21 +40,21 @@ body {
     text-align: center;
     overflow-x: hidden;
     line-height: 1.8;
-    /* Aumentado para melhor leitura */
-    /* Fundo sólido para aparência mais séria e limpa */
     background-image: none;
 }
 
 .container {
     max-width: 1100px;
-    /* Mais largo para dar respiro */
     margin: 60px auto;
     padding: 20px;
     position: relative;
     z-index: 1;
+    /* Mantém o conteúdo sempre acima do canvas */
 }
 
-/* TYPOGRAPHY REFINEMENT */
+/* ===================================== */
+/* TYPOGRAPHY REFINEMENT                 */
+/* ===================================== */
 h1,
 h2,
 h3,
@@ -127,7 +127,9 @@ p {
     font-weight: 600;
 }
 
-/* LAYOUT & CARDS */
+/* ===================================== */
+/* LAYOUT & CARDS                        */
+/* ===================================== */
 main section {
     margin-top: 80px;
     margin-bottom: 80px;
@@ -216,20 +218,20 @@ main section {
     color: var(--color-secondary-text);
 }
 
-/* GALLERY / CAROUSEL */
+/* ===================================== */
+/* GALLERY / CAROUSEL                    */
+/* ===================================== */
 .slider-container {
     width: 100%;
     overflow: hidden;
     position: relative;
     padding: 40px 0;
-    /* Fundo sutil para separar a galeria */
     background: linear-gradient(to right, transparent, rgba(211, 47, 47, 0.05), transparent);
 }
 
 .slide-track {
     display: flex;
     width: calc(350px * 16);
-    /* Mais espaço */
     animation: scroll 25s linear infinite;
 }
 
@@ -252,9 +254,7 @@ main section {
     object-fit: cover;
     border: 2px solid var(--color-border-dark);
     border-radius: 4px;
-    /* Cantos pouco arredondados */
     filter: grayscale(40%);
-    /* Efeito profissional */
     transition: all 0.4s ease;
     cursor: pointer;
 }
@@ -276,7 +276,9 @@ main section {
     }
 }
 
-/* COUNTDOWN TIMER */
+/* ===================================== */
+/* COUNTDOWN TIMER                       */
+/* ===================================== */
 #timer {
     display: flex;
     justify-content: center;
@@ -307,7 +309,9 @@ main section {
     margin-top: 10px;
 }
 
-/* DONATION SECTION */
+/* ===================================== */
+/* DONATION SECTION                      */
+/* ===================================== */
 .pix-area {
     display: flex;
     justify-content: center;
@@ -351,7 +355,9 @@ main section {
     display: inline-block;
 }
 
-/* BUTTONS */
+/* ===================================== */
+/* BUTTONS                               */
+/* ===================================== */
 .cta-buttons-wrapper {
     display: flex;
     justify-content: center;
@@ -399,7 +405,9 @@ main section {
     box-shadow: none;
 }
 
-/* BOOKS SECTION */
+/* ===================================== */
+/* BOOKS SECTION                         */
+/* ===================================== */
 .books-subtitle {
     font-size: 1.1rem;
     text-transform: uppercase;
@@ -490,7 +498,9 @@ main section {
     color: var(--color-text-light-gray);
 }
 
-/* WAYS TO HELP LIST */
+/* ===================================== */
+/* WAYS TO HELP LIST                     */
+/* ===================================== */
 .ways-to-help-wrapper {
     margin: 60px 0;
 }
@@ -583,7 +593,9 @@ main section {
     font-size: 1.1rem;
 }
 
-/* MODAL / LIGHTBOX */
+/* ===================================== */
+/* MODAL / LIGHTBOX                      */
+/* ===================================== */
 .modal {
     display: none;
     position: fixed;
@@ -628,7 +640,9 @@ main section {
     letter-spacing: 1px;
 }
 
-/* FOOTER */
+/* ===================================== */
+/* FOOTER                                */
+/* ===================================== */
 footer {
     border-top: 1px solid var(--color-border-dark);
     margin-top: 80px;
@@ -639,7 +653,9 @@ footer {
     text-transform: uppercase;
 }
 
-/* MEDIA QUERIES */
+/* ===================================== */
+/* MEDIA QUERIES                         */
+/* ===================================== */
 @media (max-width: 768px) {
     h1 {
         font-size: 3rem;
