@@ -52,16 +52,17 @@ if (btnCopiar) {
 }
 
 /* ===================================== */
-/* FUNÇÃO: EFEITO DE PARTÍCULAS (WAVE & ZOOM) */
+/* FUNÇÃO: EFEITO DE PARTÍCULAS (2D WAVES - MOUSE INTERACTION) */
 /* ===================================== */
 const canvas = document.getElementById('particle-canvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
     let width, height;
     let particles = [];
+    let ripples = [];
 
-    // Apenas tons de vermelho puro e o vermelho da marca para consistência
-    const colors = ['#A81B1B', '#FF1A1A', '#D32F2F'];
+    // Cores da marca
+    const colors = ['#A81B1B', '#FF1A1A', '#D32F2F', '#ff4d4d', '#8B0000'];
 
     function resize() {
         width = window.innerWidth;
@@ -72,175 +73,248 @@ if (canvas) {
     }
 
     class Particle {
-        constructor(x, y, spiralAngle) {
-            this.originX = x;
-            this.originY = y;
+        constructor() {
+            // Distribuição aleatória por toda a tela (plano 2D)
+            this.baseX = Math.random() * width;
+            this.baseY = Math.random() * height;
             
-            this.x = x;
-            this.y = y;
-
-            // Alinhado ao longo da curva da espiral (tangente)
-            this.angle = spiralAngle + Math.PI / 2;
-
             this.color = colors[Math.floor(Math.random() * colors.length)];
-
-            // Tamanhos base arredondados e curtos (Zoom Adicionado)
-            this.baseSize = Math.random() * 3.5 + 3; // Mais grossos
-            this.baseLength = Math.random() * 2 + 1; // Continuam bem redondinhos
-
-            this.currentLength = this.baseLength;
-            this.currentSize = this.baseSize;
-            this.alpha = 0; // Começam invisíveis
             
-            // Targets para transições suaves (Lerp)
-            this.targetAlpha = 0;
-            this.targetSize = this.baseSize;
-            this.targetLength = this.baseLength;
-            
-            // Variáveis para a onda "vai e vem" baseada na distância até o centro
-            const dxCenter = x - (width / 2);
-            const dyCenter = y - (height / 2);
-            this.distFromCenter = Math.sqrt(dxCenter * dxCenter + dyCenter * dyCenter) || 1;
-            this.dirX = dxCenter / this.distFromCenter;
-            this.dirY = dyCenter / this.distFromCenter;
+            // Tamanho base das linhas finas
+            this.baseLength = Math.random() * 3 + 3;
         }
 
-        update(mouseX, mouseY, time) {
-            // Movimento de onda natural (suave) da galáxia inteira (velocidade reduzida)
-            const globalWaveOffset = Math.sin(time * 0.0004 - this.distFromCenter * 0.01) * 10;
+        updateAndDraw(ctx, time, mouseX, mouseY) {
+            let x = this.baseX;
+            let y = this.baseY;
+
+            let interactionLevel = 0; // Define se a partícula aparece
+            let pushX = 0;
+            let pushY = 0;
+
+            // 1. Calcula a Geleia (Jelly Mask) em volta do mouse
+            let jellyMask = 0;
+            const jellyRadius = 650; 
             
-            let targetX = this.originX + this.dirX * globalWaveOffset;
-            let targetY = this.originY + this.dirY * globalWaveOffset;
-
-            // Fator de tamanho dinâmico: mais perto do centro da espiral = menor. 
-            const currentDistFromCenter = this.distFromCenter + globalWaveOffset;
-            const centerScale = Math.max(0.1, currentDistFromCenter / 1000); 
-            const dynamicBaseSize = this.baseSize * (0.4 + centerScale);
-            const dynamicBaseLength = this.baseLength * (0.4 + centerScale);
-
-            const dx = mouseX - targetX;
-            const dy = mouseY - targetY;
-            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-
-            // Raio do efeito do mouse
-            const maxDist = 550;
-
-            if (dist < maxDist) {
-                // Força baseada na distância do mouse (easing para transição suave)
-                const force = (maxDist - dist) / maxDist;
-                const smoothForce = Math.pow(force, 1.2); 
-                const invertedForce = 1 - smoothForce;
-
-                // NOVA ONDA: O mouse cria ondas (ripples) pulsantes ao seu redor (velocidade reduzida)
-                const mouseWave = Math.sin(time * 0.0015 - dist * 0.03) * (smoothForce * 40);
+            let distMouse = 9999;
+            let dxMouse = 0;
+            let dyMouse = 0;
+            
+            if (mouseX !== -1000) {
+                dxMouse = x - mouseX;
+                dyMouse = y - mouseY;
+                distMouse = Math.sqrt(dxMouse*dxMouse + dyMouse*dyMouse) || 1;
                 
-                // Aplica a onda do mouse empurrando radialmente a partir do cursor
-                targetX -= (dx / dist) * mouseWave;
-                targetY -= (dy / dist) * mouseWave;
-
-                // 1. EFEITO ZOOM INVERTIDO: Menores perto do mouse e influenciados pela distância do centro
-                this.targetLength = dynamicBaseLength + (invertedForce * 1.5);
-                this.targetSize = dynamicBaseSize + (invertedForce * 1.5);
-
-                // 2. EFEITO APARECER
-                this.targetAlpha = smoothForce; 
-            } else {
-                this.targetLength = dynamicBaseLength;
-                this.targetSize = dynamicBaseSize;
-                this.targetAlpha = 0;
+                if (distMouse < jellyRadius) {
+                    jellyMask = Math.pow(1 - (distMouse / jellyRadius), 0.6);
+                }
             }
+
+            // Removido o efeito de zoom (sizeBoost). Apenas ilumina a área.
+            interactionLevel += jellyMask * 0.45; 
+
+            // 2. Ondas (Ripples) que reverberam pela tela toda
+            let rippleIllumination = 0;
+
+            for (let r of ripples) {
+                const dx = x - r.x;
+                const dy = y - r.y;
+                const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+                
+                const distanceToRipple = dist - r.radius; 
+                
+                // Se estiver dentro da espessura da onda
+                if (Math.abs(distanceToRipple) < r.thickness) {
+                    const angle = (distanceToRipple / r.thickness) * Math.PI; 
+                    const wavePush = Math.sin(angle); 
+                    const envelope = Math.pow(Math.cos(angle / 2), 2); 
+                    
+                    const push = wavePush * envelope * 25 * r.life; // Onda mais suave (não parece explosão)
+                    
+                    pushX += (dx / dist) * push;
+                    pushY += (dy / dist) * push;
+
+                    // A onda tem luz própria, ilumina por onde passa na tela toda
+                    rippleIllumination += envelope * r.life * 1.5;
+                }
+            }
+
+            // 3. Onda parada (Pulso fixo no centro ativo - Geleia puxando)
+            if (mouseX !== -1000) {
+                const distanceToPulse = distMouse - pulseRadius;
+                if (Math.abs(distanceToPulse) < 100) {
+                    const angle = (distanceToPulse / 100) * Math.PI;
+                    const wavePush = Math.sin(angle);
+                    const envelope = Math.pow(Math.cos(angle / 2), 2);
+                    const pulseLife = Math.max(0, Math.pow(1.0 - (pulseRadius / 450), 1.5));
+                    
+                    const push = wavePush * envelope * 25 * pulseLife; // Puxa e empurra
+                    pushX += (dxMouse / distMouse) * push;
+                    pushY += (dyMouse / distMouse) * push;
+
+                    interactionLevel += envelope * pulseLife * 1.5;
+                }
+            }
+
+            // A MÁGICA: A geleia ilumina o centro ao redor do mouse
+            interactionLevel *= jellyMask; 
             
-            // Interpolação suave (Lerp) para as transições de luz e tamanho
-            this.alpha += (this.targetAlpha - this.alpha) * 0.1;
-            this.currentSize += (this.targetSize - this.currentSize) * 0.1;
-            this.currentLength += (this.targetLength - this.currentLength) * 0.1;
+            // Mas as ondas reverberam e iluminam tudo (mesmo fora da geleia)
+            interactionLevel += rippleIllumination;
 
-            // Interpolação suave (Lerp) para a posição, dando fluidez orgânica ao movimento das ondas
-            this.x += (targetX - this.x) * 0.15;
-            this.y += (targetY - this.y) * 0.15;
-        }
+            x += pushX;
+            y += pushY;
 
-        draw(ctx) {
-            if (this.alpha <= 0.01) return; // Otimiza a renderização
+            let alpha = Math.min(1, interactionLevel); 
+            if (alpha < 0.02) return; // Escondido
+
+            const finalLength = this.baseLength; // Removido o sizeBoost
+
+            // Orientação ordenada
+            const angleToCenter = Math.atan2(y - height/2, x - width/2);
+            const dashAngle = angleToCenter + Math.PI/2;
 
             ctx.save();
-            ctx.globalAlpha = this.alpha;
-            ctx.translate(this.x, this.y);
-            ctx.rotate(this.angle);
+            ctx.globalAlpha = alpha;
+            ctx.translate(x, y);
+            ctx.rotate(dashAngle);
 
             ctx.beginPath();
-            ctx.moveTo(-this.currentLength / 2, 0);
-            ctx.lineTo(this.currentLength / 2, 0);
-
+            ctx.moveTo(-finalLength/2, 0);
+            ctx.lineTo(finalLength/2, 0);
             ctx.strokeStyle = this.color;
-            ctx.lineWidth = this.currentSize;
+            ctx.lineWidth = 1.0; // Linhas finas
             ctx.lineCap = 'round';
             ctx.stroke();
-
             ctx.restore();
+        }
+    }
+
+    class Ripple {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.radius = 0;
+            this.maxRadius = Math.max(window.innerWidth, window.innerHeight) * 1.5; // Expande para cobrir a tela inteira
+            this.speed = 3.0; // Velocidade suave
+            this.thickness = 180; // Onda gordinha
+            this.life = 1.0;
+        }
+        update() {
+            this.radius += this.speed;
+            const progress = this.radius / this.maxRadius;
+            this.life = Math.max(0, Math.pow(1.0 - progress, 1.5));
         }
     }
 
     function initParticles() {
         particles = [];
-        const numParticles = 1600; // Quantidade dobrada
-        const maxRadius = Math.max(width, height) * 1.5; // Espalha mais a espiral
-        const numArms = 16; // O dobro de linhas na espiral
-        
+        // Densidade baseada no tamanho da tela para cobrir bem em 2D
+        const numParticles = Math.floor((width * height) / 2500); 
         for (let i = 0; i < numParticles; i++) {
-            const arm = i % numArms;
-            // Progresso de 0 a 1 ao longo do braço da espiral
-            const t = Math.floor(i / numArms) / Math.floor(numParticles / numArms);
-            
-            // O buraco no meio: não deixa o centro da espiral aparecer
-            const minRadius = 300; 
-            const radius = minRadius + (t * maxRadius); 
-            
-            // O ângulo gira conforme o raio aumenta (com curva levemente mais aberta pelo zoom)
-            const spiralAngle = (radius * 0.004) + (arm * (Math.PI * 2) / numArms);
-            
-            const x = width / 2 + Math.cos(spiralAngle) * radius;
-            const y = height / 2 + Math.sin(spiralAngle) * radius;
-
-            particles.push(new Particle(x, y, spiralAngle));
+            particles.push(new Particle());
         }
     }
 
-    // Variáveis para rastrear e interpolar a posição do mouse (iniciam fora da tela)
+    // Variáveis para rastrear o movimento do mouse de forma suave
     let mouseX = -1000;
     let mouseY = -1000;
     let targetMouseX = -1000;
     let targetMouseY = -1000;
-
+    let lastSpawnX = -1000;
+    let lastSpawnY = -1000;
+    let time = 0;
+    let pulseRadius = 0; // Pulso da geleia
+    
     document.addEventListener('mousemove', (e) => {
         targetMouseX = e.clientX;
         targetMouseY = e.clientY;
     });
 
-    // Remove as partículas da tela quando o mouse sai da janela
     document.addEventListener('mouseleave', () => {
         targetMouseX = -1000;
         targetMouseY = -1000;
     });
 
-    function animate(time) {
+    document.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+            targetMouseX = e.touches[0].clientX;
+            targetMouseY = e.touches[0].clientY;
+            mouseX = targetMouseX;
+            mouseY = targetMouseY;
+            lastSpawnX = mouseX;
+            lastSpawnY = mouseY;
+        }
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            targetMouseX = e.touches[0].clientX;
+            targetMouseY = e.touches[0].clientY;
+        }
+    });
+
+    document.addEventListener('touchend', () => {
+        targetMouseX = -1000;
+        targetMouseY = -1000;
+    });
+
+    function animate() {
         ctx.clearRect(0, 0, width, height);
+        time += 16; 
+        
+        // Pulso da Geleia (puxa e traz os pontos quando parada)
+        pulseRadius += 1.5;
+        if (pulseRadius > 450) {
+            pulseRadius = 0;
+        }
 
-        // Movimento fluido do mouse (Lerp)
-        mouseX += (targetMouseX - mouseX) * 0.15;
-        mouseY += (targetMouseY - mouseY) * 0.15;
+        if (targetMouseX !== -1000) {
+            if (mouseX === -1000) { 
+                mouseX = targetMouseX;
+                mouseY = targetMouseY;
+                lastSpawnX = mouseX;
+                lastSpawnY = mouseY;
+            } else {
+                mouseX += (targetMouseX - mouseX) * 0.15; 
+                mouseY += (targetMouseY - mouseY) * 0.15;
+            }
 
-        particles.forEach(p => {
-            p.update(mouseX, mouseY, time);
-            p.draw(ctx);
-        });
+            const dx = mouseX - lastSpawnX;
+            const dy = mouseY - lastSpawnY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            
+            // Gera onda ao mexer
+            if (dist > 80) { 
+                if (ripples.length > 8) { // Mais ondas ativas para preencher a tela
+                    ripples.shift();
+                }
+                ripples.push(new Ripple(mouseX, mouseY));
+                lastSpawnX = mouseX;
+                lastSpawnY = mouseY;
+            }
+        } else {
+            mouseX = -1000;
+            mouseY = -1000;
+        }
+
+        for (let i = ripples.length - 1; i >= 0; i--) {
+            ripples[i].update();
+            if (ripples[i].life <= 0) {
+                ripples.splice(i, 1);
+            }
+        }
+
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].updateAndDraw(ctx, time, mouseX, mouseY);
+        }
 
         requestAnimationFrame(animate);
     }
-
+    
     window.addEventListener('resize', resize);
     resize();
-    animate(0);
+    animate();
 }
 
 /* ===================================== */
