@@ -21,7 +21,7 @@
 /* ===================================== */
 /* EFEITO DE PARTÍCULAS BACKGROUND       */
 /* ===================================== */
-#particle-canvas {
+.canvas-container {
     position: fixed;
     top: 0;
     left: 0;
