@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './index.css';
-import Antigravity from './components/Antigravity';
 
 function App() {
   const [modalImage, setModalImage] = useState(null);
@@ -21,55 +20,8 @@ function App() {
     alert('Chave Pix copiada com sucesso!');
   };
 
-  // Timer logic
-  const [timeLeft, setTimeLeft] = useState({ dias: 0, horas: 0, minutos: 0, segundos: 0 });
-
-  useEffect(() => {
-    const targetDate = new Date('2026-10-01T00:00:00').getTime(); // Outubro 2026
-
-    const updateTimer = () => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        setTimeLeft({ dias: 0, horas: 0, minutos: 0, segundos: 0 });
-        return;
-      }
-
-      const dias = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const horas = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutos = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const segundos = Math.floor((distance % (1000 * 60)) / 1000);
-
-      setTimeLeft({ dias, horas, minutos, segundos });
-    };
-
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <>
-      <div className="canvas-container">
-        <Antigravity
-          count={300}
-          magnetRadius={6}
-          ringRadius={7}
-          waveSpeed={0.4}
-          waveAmplitude={1}
-          particleSize={1.1}
-          lerpSpeed={0.05}
-          color="#ff0000"
-          autoAnimate
-          particleVariance={1}
-          rotationSpeed={0}
-          depthFactor={1}
-          pulseSpeed={3}
-          particleShape="capsule"
-          fieldStrength={10}
-        />
-      </div>
       
       <div className="background-blur-image"></div>
 
@@ -81,7 +33,7 @@ function App() {
 
         <main>
           <section className="missionary-name">
-            <h2>Amanda e Isabel</h2>
+            <h2>Isabel</h2>
             <p className="tagline">“Depois disto, ouvi a voz do Senhor, que dizia: — A quem enviarei, e quem há de ir
               por nós? Eu respondi: — Eis-me aqui, envia-me a mim.” <br />Isaías 6:8</p>
           </section>
@@ -134,8 +86,7 @@ function App() {
             <p className="instagram professional-instagram">
               <i className="fa-brands fa-instagram"></i>
               Acompanhe de perto:
-              <a href="https://www.instagram.com/isa_obz" target="_blank" rel="noreferrer">@isa_obz</a> E
-              <a href="https://www.instagram.com/4manda.costa/" target="_blank" rel="noreferrer">@4manda.costa</a>
+              <a href="https://www.instagram.com/isa_obz" target="_blank" rel="noreferrer">@isa_obz</a>
             </p>
           </section>
 
@@ -169,27 +120,7 @@ function App() {
             </div>
           </section>
 
-          <section className="countdown professional-countdown">
-            <h3>Preparação em Andamento</h3>
-            <div id="timer" className="elegant-timer">
-              <div className="timer-unit">
-                <span id="dias">{String(timeLeft.dias).padStart(2, '0')}</span>
-                <label>Dias</label>
-              </div>
-              <div className="timer-unit">
-                <span id="horas">{String(timeLeft.horas).padStart(2, '0')}</span>
-                <label>Horas</label>
-              </div>
-              <div className="timer-unit">
-                <span id="minutos">{String(timeLeft.minutos).padStart(2, '0')}</span>
-                <label>Minutos</label>
-              </div>
-              <div className="timer-unit">
-                <span id="segundos">{String(timeLeft.segundos).padStart(2, '0')}</span>
-                <label>Segundos</label>
-              </div>
-            </div>
-          </section>
+
 
           <section className="books professional-books">
             <h3>Literatura com Propósito</h3>
